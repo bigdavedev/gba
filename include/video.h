@@ -29,12 +29,12 @@ static inline colour RGB15(uint32_t red, uint32_t green, uint32_t blue)
 	return red | (green << 5) | (blue << 10);
 }
 
-static inline void mode3_plot(int x, int y, colour clr)
+inline void mode3_plot(int x, int y, colour clr)
 {
 	vid_mem[y * MODE3_SCREEN_WIDTH + x] = clr;
 }
 
-void      video_vsync(void);
-uint32_t* vid_flip(void);
+void video_vsync(void);
+void vid_flip(void);
 
 #endif

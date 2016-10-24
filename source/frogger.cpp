@@ -3,7 +3,7 @@
 
 int main()
 {
-	REG_DISPCNT = DCNT_MODE3 | DCNT_BG2;
+	memory::set<memory::REG_DISPCNT>(DCNT_MODE3 | DCNT_BG2);
 
 	mode3_draw_rectangle(12, 8, 108, 72, CLR_RED);
 	mode3_draw_rectangle(108, 72, 132, 88, CLR_LIME);

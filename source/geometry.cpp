@@ -8,7 +8,7 @@ void draw_line_16bpp(int          startx,
                      void*        canvas_base,
                      unsigned int pitch)
 {
-	uint16_t* canvas = (uint16_t*)(canvas_base + starty * pitch + startx * 2);
+	uint16_t* canvas = (uint16_t*)((uint8_t*)canvas_base + starty * pitch + startx * 2);
 	pitch            = pitch >> 1;
 
 	int dx    = 0;
@@ -95,7 +95,7 @@ void draw_rectangle_16bpp(int          left,
                           unsigned int pitch)
 {
 	int       width = right - left, height = bottom - top;
-	uint16_t* canvas = (uint16_t*)(canvas_base + top * pitch + left * 2);
+	uint16_t* canvas = (uint16_t*)((uint8_t*)canvas_base + top * pitch + left * 2);
 	pitch            = pitch >> 1;
 
 	// --- Draw ---
