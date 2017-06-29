@@ -13,6 +13,10 @@ target_compile_options (
 	${TARGET_NAME}
 	PUBLIC
 	-std=c++1z
+	-Wall
+	-Wextra
+	-Wpedantic
+	-Werror
 )
 
 target_sources (${TARGET_NAME}
