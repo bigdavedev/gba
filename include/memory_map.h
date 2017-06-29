@@ -1,16 +1,13 @@
 #pragma once
 
+#include "named_type.h"
+
 #include <utility>
 
 #include <cstdint>
 
-constexpr auto const MEM_IO   = unsigned{0x04000000};
-constexpr auto const MEM_VRAM = unsigned{0x06000000};
-
-constexpr auto const VRAM_PAGE_SIZE = unsigned{0x0A000};
-
-constexpr auto const REG_DISPCNT = uint32_t{0x0000};
-constexpr auto const REG_VCOUNT  = uint16_t{0x0006};
+using vram_address_t = named_type<std::uint16_t, struct vram_address_tag>;
+using mem_address_t = named_type<std::uint16_t, struct mem_address_tag>;
 
 namespace memory
 {
@@ -62,17 +59,17 @@ namespace memory
 	};
 
 	template <typename T>
-	constexpr auto set(typename T::value_type const value)
-	    -> typename std::enable_if<is_region<T>::value,
-	                               void>::type
+	constexpr void set(typename T::value_type const value)
 	{
+		static_assert(is_region<T>::value, "Not a memory region");
 		*reinterpret_cast<typename T::pointer>(T::address) = value;
 	}
 
 	template <typename T>
 	constexpr auto get()
-	    -> volatile typename T::value_type const&
+	    -> volatile typename T::value_type&
 	{
+		static_assert(is_region<T>::value, "Not a memory region");
 		return *reinterpret_cast<typename T::pointer>(T::address);
 	}
-};
+}

@@ -4,6 +4,30 @@
 #include "memory_map.h"
 #include "types.h"
 
+#include "named_type.h"
+
+#include <cstdint>
+
+using dcnt_video_mode_t = named_type<std::uint32_t, struct dcnt_video_mode_tag>;
+using dcnt_background_t = named_type<std::uint32_t, struct dcnt_background_tag>;
+
+// --- REG_DISPCNT defines ---
+constexpr auto const DCNT_MODE0 = dcnt_video_mode_t{0x0000};
+constexpr auto const DCNT_MODE1 = dcnt_video_mode_t{0x0001};
+constexpr auto const DCNT_MODE2 = dcnt_video_mode_t{0x0002};
+constexpr auto const DCNT_MODE3 = dcnt_video_mode_t{0x0003};
+constexpr auto const DCNT_MODE4 = dcnt_video_mode_t{0x0004};
+constexpr auto const DCNT_MODE5 = dcnt_video_mode_t{0x0005};
+
+constexpr auto const DCNT_PAGE = unsigned{0x0010};
+
+// layers
+constexpr auto const DCNT_BG0 = dcnt_background_t{0x0100};
+constexpr auto const DCNT_BG1 = dcnt_background_t{0x0200};
+constexpr auto const DCNT_BG2 = dcnt_background_t{0x0400};
+constexpr auto const DCNT_BG3 = dcnt_background_t{0x0800};
+constexpr auto const DCNT_OBJ = dcnt_background_t{0x1000};
+
 #define MODE3_SCREEN_WIDTH 240
 #define MODE3_SCREEN_HEIGHT 160
 
@@ -12,8 +36,6 @@
 
 #define MODE5_SCREEN_WIDTH 160
 #define MODE5_SCREEN_HEIGHT 128
-
-#define vid_mem ((uint16_t*)MEM_VRAM)
 
 #define CLR_BLACK 0x0000
 #define CLR_RED 0x001F
@@ -31,10 +53,19 @@ static inline colour RGB15(uint32_t red, uint32_t green, uint32_t blue)
 
 inline void mode3_plot(int x, int y, colour clr)
 {
-	vid_mem[y * MODE3_SCREEN_WIDTH + x] = clr;
+	using memory::vram;
+	reinterpret_cast<vram::pointer>(vram::base)[y * MODE3_SCREEN_WIDTH + x] = clr;
+}
+
+inline void set_display_control(dcnt_video_mode_t video_mode,
+	                            dcnt_background_t background_mode)
+{
+	using memory::set;
+	using memory::REG_DISPCNT;
+
+	set<REG_DISPCNT>(video_mode | background_mode);
 }
 
 void video_vsync(void);
-void vid_flip(void);
 
 #endif
