@@ -13,6 +13,7 @@ find_program (CMAKE_OBJCOPY arm-none-eabi-objcopy)
 find_program (CMAKE_LINKER arm-none-eabi-ld)
 find_program (CMAKE_C_COMPILER arm-none-eabi-gcc)
 find_program (CMAKE_CXX_COMPILER arm-none-eabi-g++)
+find_program (CMAKE_STRIP arm-none-eabi-strip)
 
 set (ARCH "-mthumb-interwork -mthumb")
 set (SPECS -specs=gba.specs)
