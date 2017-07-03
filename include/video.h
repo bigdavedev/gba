@@ -57,15 +57,33 @@ inline void mode3_plot(int x, int y, colour clr)
 	reinterpret_cast<vram::pointer>(vram::base)[y * MODE3_SCREEN_WIDTH + x] = clr;
 }
 
-inline void set_display_control(dcnt_video_mode_t video_mode,
-	                            dcnt_background_t background_mode)
-{
-	using memory::set;
-	using memory::REG_DISPCNT;
-
-	set<REG_DISPCNT>(video_mode | background_mode);
-}
 
 void video_vsync(void);
+
+struct display_control
+{
+	void set_display_control(dcnt_video_mode_t video_mode,
+	                         dcnt_background_t background_mode)
+	{
+		using memory::set;
+		using memory::REG_DISPCNT;
+
+		set<REG_DISPCNT>(video_mode | background_mode);
+	}
+};
+
+template<typename Register>
+struct display
+{
+	display(Register& reg) : reg{reg} {}
+
+	void set_display_control(dcnt_video_mode_t vmode, dcnt_background_t bgmode)
+	{
+		reg.set_display_control(vmode, bgmode);
+	}
+
+	Register& reg;
+};
+
 
 #endif

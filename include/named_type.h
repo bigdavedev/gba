@@ -7,13 +7,13 @@ struct named_type
 		: value{value}
 	{}
 
-	named_type& operator=(T value)
+	constexpr named_type& operator=(T value)
 	{
 		this->value = value;
 		return *this;
 	}
 
-	operator T() const
+	constexpr operator T() const
 	{
 		return value;
 	}
