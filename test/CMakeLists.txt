@@ -21,6 +21,7 @@ target_sources (
 
 	PRIVATE
 	${CMAKE_SOURCE_DIR}/source/video.cpp
+	${PROJECT_SOURCE_DIR}/main.cpp
 )
 
 target_include_directories (
@@ -41,7 +42,6 @@ target_link_libraries (
 	PUBLIC
 	gtest
 	gmock
-	gmock_main
 )
 
 add_test (${TARGET} ${CMAKE_RUNTIME_OUTPUT_DIR}/${TARGET})
