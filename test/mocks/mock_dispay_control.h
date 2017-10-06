@@ -3,10 +3,10 @@
 #include <gmock/gmock.h>
 #include "video.h"
 
-class mock_display_control
+class mock_display_control : public idisplay_ctl
 {
 public:
-	MOCK_CONST_METHOD2(set_display_control,
+	MOCK_METHOD2(set,
 	                   void(dcnt_video_mode_t,
 	                        dcnt_background_t));
 };

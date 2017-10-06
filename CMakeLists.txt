@@ -1,7 +1,6 @@
 cmake_minimum_required (VERSION 3.2)
 
 if (NOT TESTING)
-set (CMAKE_TOOLCHAIN_FILE ${CMAKE_SOURCE_DIR}/cmake/toolchain.gba.cmake)
 set (CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 
 project (rom)
@@ -18,6 +17,7 @@ target_compile_options (
 	-Wextra
 	-Wpedantic
 	-Werror
+	-fno-exceptions
 )
 
 target_sources (

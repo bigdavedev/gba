@@ -12,8 +12,9 @@ protected:
 
 TEST_F(TestDisplay, Foo)
 {
-	EXPECT_CALL(display_control, set_display_control(_,_));
-	display<mock_display_control> disp{display_control};
+	memory::REG_DISPCNT::value_type reg = {};
+	EXPECT_CALL(display_control, set(_,_));
+	display disp{display_control};
 
 	disp.set_display_control(DCNT_MODE3, DCNT_BG2);
 }

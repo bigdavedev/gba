@@ -60,10 +60,16 @@ inline void mode3_plot(int x, int y, colour clr)
 
 void video_vsync(void);
 
-struct display_control
+class idisplay_ctl
 {
-	void set_display_control(dcnt_video_mode_t video_mode,
-	                         dcnt_background_t background_mode)
+public:
+	virtual void set(dcnt_video_mode_t video_mode, dcnt_background_t background_mode) = 0;
+};
+
+class display_control : public idisplay_ctl
+{
+public:
+	void set(dcnt_video_mode_t video_mode, dcnt_background_t background_mode) override
 	{
 		using memory::set;
 		using memory::REG_DISPCNT;
@@ -72,17 +78,16 @@ struct display_control
 	}
 };
 
-template<typename Register>
 struct display
 {
-	display(Register& reg) : reg{reg} {}
+	display(idisplay_ctl& disp_ctl) : disp_ctl{disp_ctl} {}
 
 	void set_display_control(dcnt_video_mode_t vmode, dcnt_background_t bgmode)
 	{
-		reg.set_display_control(vmode, bgmode);
+		disp_ctl.set(vmode, bgmode);
 	}
 
-	Register& reg;
+	idisplay_ctl& disp_ctl;
 };
 
 
