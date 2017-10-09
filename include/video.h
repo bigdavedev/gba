@@ -6,27 +6,39 @@
 
 #include "named_type.h"
 
+#include <type_traits>
+
 #include <cstdint>
 
-using dcnt_video_mode_t = named_type<std::uint32_t, struct dcnt_video_mode_tag>;
-using dcnt_background_t = named_type<std::uint32_t, struct dcnt_background_tag>;
-
 // --- REG_DISPCNT defines ---
-constexpr auto const DCNT_MODE0 = dcnt_video_mode_t{0x0000};
-constexpr auto const DCNT_MODE1 = dcnt_video_mode_t{0x0001};
-constexpr auto const DCNT_MODE2 = dcnt_video_mode_t{0x0002};
-constexpr auto const DCNT_MODE3 = dcnt_video_mode_t{0x0003};
-constexpr auto const DCNT_MODE4 = dcnt_video_mode_t{0x0004};
-constexpr auto const DCNT_MODE5 = dcnt_video_mode_t{0x0005};
+enum class dcnt_video_mode : memory::REG_DISPCNT::value_type
+{
+	MODE0 = 0x0000,
+	MODE1 = 0x0001,
+	MODE2 = 0x0002,
+	MODE3 = 0x0003,
+	MODE4 = 0x0004,
+	MODE5 = 0x0005
+};
 
 constexpr auto const DCNT_PAGE = unsigned{0x0010};
 
 // layers
-constexpr auto const DCNT_BG0 = dcnt_background_t{0x0100};
-constexpr auto const DCNT_BG1 = dcnt_background_t{0x0200};
-constexpr auto const DCNT_BG2 = dcnt_background_t{0x0400};
-constexpr auto const DCNT_BG3 = dcnt_background_t{0x0800};
-constexpr auto const DCNT_OBJ = dcnt_background_t{0x1000};
+enum class dcnt_background_mode : memory::REG_DISPCNT::value_type
+{
+	BG0 = 0x0100,
+	BG1 = 0x0200,
+	BG2 = 0x0400,
+	BG3 = 0x0800,
+	OBJ = 0x1000
+};
+
+inline auto operator|(dcnt_video_mode vmode, dcnt_background_mode bgmode)
+	-> memory::REG_DISPCNT::value_type
+{
+	return static_cast<std::underlying_type_t<dcnt_video_mode>>(vmode) |
+	       static_cast<std::underlying_type_t<dcnt_background_mode>>(bgmode);
+}
 
 #define MODE3_SCREEN_WIDTH 240
 #define MODE3_SCREEN_HEIGHT 160
@@ -63,13 +75,13 @@ void video_vsync(void);
 class idisplay_ctl
 {
 public:
-	virtual void set(dcnt_video_mode_t video_mode, dcnt_background_t background_mode) = 0;
+	virtual void set(dcnt_video_mode video_mode, dcnt_background_mode background_mode) = 0;
 };
 
 class display_control : public idisplay_ctl
 {
 public:
-	void set(dcnt_video_mode_t video_mode, dcnt_background_t background_mode) override
+	void set(dcnt_video_mode video_mode, dcnt_background_mode background_mode) override
 	{
 		using memory::set;
 		using memory::REG_DISPCNT;
@@ -78,11 +90,12 @@ public:
 	}
 };
 
-struct display
+class display
 {
+public:
 	display(idisplay_ctl& disp_ctl) : disp_ctl{disp_ctl} {}
 
-	void set_display_control(dcnt_video_mode_t vmode, dcnt_background_t bgmode)
+	void set_display_control(dcnt_video_mode vmode, dcnt_background_mode bgmode)
 	{
 		disp_ctl.set(vmode, bgmode);
 	}

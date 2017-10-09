@@ -16,5 +16,5 @@ TEST_F(TestDisplay, Foo)
 	EXPECT_CALL(display_control, set(_,_));
 	display disp{display_control};
 
-	disp.set_display_control(DCNT_MODE3, DCNT_BG2);
+	disp.set_display_control(dcnt_video_mode::MODE3, dcnt_background_mode::BG2);
 }
