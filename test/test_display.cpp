@@ -12,7 +12,6 @@ protected:
 
 TEST_F(TestDisplay, Foo)
 {
-	memory::REG_DISPCNT::value_type reg = {};
 	EXPECT_CALL(display_control, set(_,_));
 	display disp{display_control};
 

@@ -1,5 +1,5 @@
 
-if (DEVKITPRO_ROOT STREQUAL "")
+if ("${DEVKITPRO_ROOT}" STREQUAL "")
 	message (FATAL "You need to set DEVKITPRO_ROOT to point to you devkitpro installation")
 endif()
 

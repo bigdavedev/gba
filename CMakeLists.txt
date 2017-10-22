@@ -1,49 +1,11 @@
-cmake_minimum_required (VERSION 3.2)
+cmake_minimum_required (VERSION 3.9)
+
+add_subdirectory (libgba)
 
 if (NOT TESTING)
-set (CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
+	set (CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 
-project (rom)
-
-set (TARGET_NAME ${PROJECT_NAME})
-
-add_executable (${TARGET_NAME} "")
-
-target_compile_options (
-	${TARGET_NAME}
-	PUBLIC
-	-std=c++1z
-	-Wall
-	-Wextra
-	-Wpedantic
-	-Werror
-	-fno-exceptions
-)
-
-target_sources (
-	${TARGET_NAME}
-
-	PRIVATE
-	source/video.cpp
-	source/main.cpp
-)
-
-target_include_directories (
-	${TARGET_NAME}
-	
-	PUBLIC
-	${CMAKE_CURRENT_SOURCE_DIR}/include
-)
-
-set_target_properties(
-	${PROJECT_NAME}
-	PROPERTIES
-	LINK_FLAGS ${CMAKE_GBA_LINKER_FLAGS}
-)
-
-include (gba)
-
-convert_to_gba (${TARGET_NAME})
+	add_subdirectory (rom)
 
 else()
 	enable_testing ()

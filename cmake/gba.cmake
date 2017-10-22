@@ -13,7 +13,7 @@ macro(CONVERT_TO_GBA NAME)
 	                   POST_BUILD
 	                   COMMAND ${CMAKE_OBJCOPY}
 	                   ARGS -O binary ${NAME} ${NAME}.gba
-	                   COMMAND ${GBAFIX} ${CMAKE_BINARY_DIR}/${NAME}.gba
+	                   COMMAND ${GBAFIX} ${PROJECT_BINARY_DIR}/${NAME}.gba
 	                   COMMENT "${NAME} -> ${NAME}.gba"
 	)
 	set_directory_properties(PROPERTIES
