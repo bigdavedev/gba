@@ -21,6 +21,7 @@ set_target_properties(
 	INTERPROCEDURAL_OPTIMIZATION TRUE
 )
 
-include (gba)
-
-convert_to_gba (rom)
+if (NOT TESTING)
+	include (gba)
+	convert_to_gba (rom)
+endif ()
