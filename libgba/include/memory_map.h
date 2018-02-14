@@ -16,6 +16,11 @@ namespace memory
 		constexpr static auto const address = base + uint32_t{0x0000};
 	};
 
+	struct REG_KEYINPUT : io
+	{
+		constexpr static auto const address = base + uint32_t{0x0130};
+	};
+
 	struct REG_VCOUNT : io
 	{
 		constexpr static auto const address = base + uint32_t{0x0006};

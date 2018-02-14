@@ -1,4 +1,5 @@
 #include "video.h"
+#include "input.h"
 
 int main()
 {
@@ -6,20 +7,24 @@ int main()
 	display disp{disp_ctl};
 	disp.set_display_control(dcnt_video_mode::MODE3, dcnt_background_mode::BG2);
 
-	for (int x = 0; x < MODE3_SCREEN_WIDTH; x++)
-	{
-		for (int y = 0; y < MODE3_SCREEN_HEIGHT; y++)
-		{
-			mode3_plot(x, y, CLR_BLACK);
-		}
-	}
+	input::key_input keys{};
 
 	mode3_plot(100, 50, CLR_WHITE);
-	mode3_plot(100, 51, CLR_RED);
 
 	while (1)
 	{
 		video_vsync();
+
+		keys.poll();
+
+		if (keys.key_down(input::key::A))
+		{
+			mode3_plot(100, 60, CLR_WHITE);
+		}
+		else
+		{
+			mode3_plot(100, 60, CLR_RED);
+		}
 	}
 
 	return 0;
