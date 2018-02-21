@@ -1,24 +1,25 @@
 
-if ("${DEVKITPRO_ROOT}" STREQUAL "")
-	message (FATAL "You need to set DEVKITPRO_ROOT to point to you devkitpro installation")
-endif()
+find_program (CMAKE_MAKE_PROGRAM make)
 
 set (CMAKE_SYSTEM_NAME Generic)
 set (CMAKE_SYSTEM_PROCESSOR arm-none-eabi)
+set (CMAKE_SYSROOT ${DEVKITPRO_ROOT}/${CMAKE_SYSTEM_NAME})
 
 set (CMAKE_FIND_ROOT_PATH ${DEVKITPRO_ROOT})
 
-set (CMAKE_FIND_ROOT_PATH_MODE_PROGRAM ONLY)
+set (CMAKE_FIND_ROOT_PATH_MODE_PROGRAM NEVER)
 set (CMAKE_FIND_ROOT_PATH_MODE_LIBRARY ONLY)
 set (CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)
 set (CMAKE_FIND_ROOT_PATH_MODE_PACKAGE ONLY)
 
 
-find_program (CMAKE_OBJCOPY ${DEVKITPRO_ROOT}/bin/arm-none-eabi-objcopy)
-find_program (CMAKE_LINKER ${DEVKITPRO_ROOT}/bin/arm-none-eabi-ld)
-find_program (CMAKE_C_COMPILER ${DEVKITPRO_ROOT}/bin/arm-none-eabi-gcc)
-find_program (CMAKE_CXX_COMPILER ${DEVKITPRO_ROOT}/bin/arm-none-eabi-g++)
-find_program (CMAKE_STRIP ${DEVKITPRO_ROOT}/bin/arm-none-eabi-strip)
+set (CMAKE_OBJCOPY ${DEVKITPRO_ROOT}/bin/${CMAKE_SYSTEM_PROCESSOR}-objcopy)
+set (CMAKE_LINKER ${DEVKITPRO_ROOT}/bin/${CMAKE_SYSTEM_PROCESSOR}-ld)
+set (CMAKE_C_COMPILER ${DEVKITPRO_ROOT}/bin/${CMAKE_SYSTEM_PROCESSOR}-gcc)
+set (CMAKE_CXX_COMPILER ${DEVKITPRO_ROOT}/bin/${CMAKE_SYSTEM_PROCESSOR}-g++)
+set (CMAKE_STRIP ${DEVKITPRO_ROOT}/bin/${CMAKE_SYSTEM_PROCESSOR}-strip)
+
+set (GBAFIX ${DEVKITPRO_ROOT}/bin/gbafix)
 
 set (ARCH "-mthumb-interwork -mthumb")
 set (SPECS -specs=gba.specs)
