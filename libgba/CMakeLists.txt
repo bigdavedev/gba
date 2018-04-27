@@ -14,19 +14,21 @@ target_compile_options (
 	-Wpedantic
 	-Werror
 	-fno-exceptions
+        -fvisibility=hidden
+        -fwhole-program
 )
 
 target_sources (
 	${TARGET_NAME}
-
-	INTERFACE
+        INTERFACE
 	${PROJECT_SOURCE_DIR}/source/video.cpp
+        ${PROJECT_SOURCE_DIR}/source/input.cpp
 )
 
 target_include_directories (
 	${TARGET_NAME}
-	
-	INTERFACE
+    INTERFACE
 	${CMAKE_CURRENT_SOURCE_DIR}/include
 )
+
 

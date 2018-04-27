@@ -22,30 +22,36 @@ enum class key : memory::REG_KEYINPUT::value_type
 	R      = 0x0200
 };
 
-class key_input
+class ikey_input
 {
 public:
-	inline void poll()
-	{
-		using memory::get;
-		using memory::REG_KEYINPUT;
+    virtual void poll() = 0;
 
-		constexpr static auto mask = REG_KEYINPUT::value_type{ 0x03FF };
+    virtual bool key_down(key val) const = 0;
 
-		state = ~get<REG_KEYINPUT>() & mask;
-	}
+    virtual bool key_was_down(key val) const = 0;
 
-	inline bool key_down(key val)
-	{
-		return state & static_cast<std::underlying_type_t<key>>(val);
-	}
+    virtual bool key_up(key val) const = 0;
 
-	inline bool key_up(key val)
-	{
-		return ~state & static_cast<std::underlying_type_t<key>>(val);
-	}
+    virtual bool key_was_up(key val) const = 0;
+};
+
+class key_input final : public ikey_input
+{
+public:
+	void poll() override;
+
+	bool key_down(key val) const override;
+
+	bool key_was_down(key val) const override;
+
+	bool key_up(key val) const override;
+
+	bool key_was_up(key val) const override;
+
 private:
 	memory::REG_KEYINPUT::value_type state;
+	memory::REG_KEYINPUT::value_type previous_state;
 };
 
 }

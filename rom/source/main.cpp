@@ -9,8 +9,6 @@ int main()
 
 	input::key_input keys{};
 
-	mode3_plot(100, 50, CLR_WHITE);
-
 	while (1)
 	{
 		video_vsync();

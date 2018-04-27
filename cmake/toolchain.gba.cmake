@@ -24,5 +24,5 @@ set (GBAFIX ${DEVKITPRO_ROOT}/bin/gbafix)
 set (ARCH "-mthumb-interwork -mthumb")
 set (SPECS -specs=gba.specs)
 
-set (CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${ARCH} -fno-strict-aliasing")
-set (CMAKE_GBA_LINKER_FLAGS "${ARCH} ${SPECS} -Wl,-Map=rom.map")
+set (CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${ARCH} -fno-strict-aliasing -fomit-frame-pointer -ffast-math")
+set (CMAKE_GBA_LINKER_FLAGS "${ARCH} ${SPECS} -Wl,-Map=rom.map -O2")

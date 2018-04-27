@@ -78,27 +78,18 @@ public:
 	virtual void set(dcnt_video_mode video_mode, dcnt_background_mode background_mode) = 0;
 };
 
-class display_control : public idisplay_ctl
+class display_control final : public idisplay_ctl
 {
 public:
-	void set(dcnt_video_mode video_mode, dcnt_background_mode background_mode) override
-	{
-		using memory::set;
-		using memory::REG_DISPCNT;
-
-		set<REG_DISPCNT>(video_mode | background_mode);
-	}
+	 void set(dcnt_video_mode video_mode, dcnt_background_mode background_mode) override;
 };
 
-class display
+class display final
 {
 public:
 	display(idisplay_ctl& disp_ctl) : disp_ctl{disp_ctl} {}
 
-	void set_display_control(dcnt_video_mode vmode, dcnt_background_mode bgmode)
-	{
-		disp_ctl.set(vmode, bgmode);
-	}
+	void set_display_control(dcnt_video_mode vmode, dcnt_background_mode bgmode);
 
 	idisplay_ctl& disp_ctl;
 };

@@ -13,8 +13,11 @@ target_link_libraries (
 	gba
 )
 
+include(CheckIPOSupported)
+check_ipo_supported()
+
 set_target_properties(
-	${PROJECT_NAME}
+	rom
 	PROPERTIES
 	LINK_FLAGS
 	${CMAKE_GBA_LINKER_FLAGS}
