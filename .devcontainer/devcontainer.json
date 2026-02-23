@@ -1,0 +1,12 @@
+{
+    "name": "Debian",
+    "image": "devkitpro/devkitarm:20260221",
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "ms-vscode.cpptools",
+                "ms-vscode.cmake-tools"
+            ]
+        }
+    }
+}
