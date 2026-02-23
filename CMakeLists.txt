@@ -1,3 +1,5 @@
+# Copyright 2026 David Brown <d.brown@bigdavedev.com>
+# SPDX short identifier: MIT
 cmake_minimum_required (VERSION 3.31)
 
 project (

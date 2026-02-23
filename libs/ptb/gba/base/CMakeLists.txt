@@ -1,3 +1,5 @@
+# Copyright 2026 David Brown <d.brown@bigdavedev.com>
+# SPDX short identifier: MIT
 add_library (ptb_gba_base INTERFACE)
 add_library (PtB::Gba::Base ALIAS ptb_gba_base)
 

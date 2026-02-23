@@ -1,15 +1,26 @@
-#ifndef LIBS_PTB_GBA_BASE_INCLUDE_PTB_GBA_BASE_TYPES_H
-#define LIBS_PTB_GBA_BASE_INCLUDE_PTB_GBA_BASE_TYPES_H
+// Copyright 2026 David Brown <d.brown@bigdavedev.com>
+// SPDX short identifier: MIT
+
+#ifndef PTB_LIBS_PTB_GBA_BASE_INCLUDE_PTB_GBA_BASE_TYPES_H
+#define PTB_LIBS_PTB_GBA_BASE_INCLUDE_PTB_GBA_BASE_TYPES_H
 
 namespace ptb::gba
 {
-    using u8 = unsigned char;
-    using u16 = unsigned short;
-    using u32 = unsigned int;
+using u8 = unsigned char;
+using u16 = unsigned short;
+using u32 = unsigned int;
 
-    using s8 = signed char;
-    using s16 = signed short;
-    using s32 = signed int;
-}
+using s8 = signed char;
+using s16 = signed short;
+using s32 = signed int;
 
-#endif // LIBS_PTB_GBA_BASE_INCLUDE_PTB_GBA_BASE_TYPES_H
+static_assert(sizeof(u8) == 1);
+static_assert(sizeof(u16) == 2);
+static_assert(sizeof(u32) == 4);
+
+static_assert(sizeof(s8) == 1);
+static_assert(sizeof(s16) == 2);
+static_assert(sizeof(s32) == 4);
+} // namespace ptb::gba
+
+#endif // PTB_LIBS_PTB_GBA_BASE_INCLUDE_PTB_GBA_BASE_TYPES_H
