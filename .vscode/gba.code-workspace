@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"path": ".."
+		},
+		{
+			"path": "/opt/devkitpro"
+		}
+	],
+	"settings": {
+		"C_Cpp.default.cppStandard": "c++26"
+	}
+}

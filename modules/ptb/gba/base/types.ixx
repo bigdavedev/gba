@@ -1,10 +1,9 @@
 // Copyright 2026 David Brown <d.brown@bigdavedev.com>
 // SPDX short identifier: MIT
 
-#ifndef PTB_LIBS_PTB_GBA_BASE_INCLUDE_PTB_GBA_BASE_TYPES_H
-#define PTB_LIBS_PTB_GBA_BASE_INCLUDE_PTB_GBA_BASE_TYPES_H
+export module ptb.gba.base:types;
 
-namespace ptb::gba
+export namespace ptb::gba
 {
 using u8 = unsigned char;
 using u16 = unsigned short;
@@ -22,5 +21,3 @@ static_assert(sizeof(s8) == 1);
 static_assert(sizeof(s16) == 2);
 static_assert(sizeof(s32) == 4);
 } // namespace ptb::gba
-
-#endif // PTB_LIBS_PTB_GBA_BASE_INCLUDE_PTB_GBA_BASE_TYPES_H

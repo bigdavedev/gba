@@ -5,7 +5,11 @@
         "vscode": {
             "extensions": [
                 "ms-vscode.cpptools",
-                "ms-vscode.cmake-tools"
+                "ms-vscode.cpp-devtools",
+                "ms-vscode.cmake-tools",
+                "matepek.vscode-catch2-test-adapter",
+                "github.copilot-chat",
+                "eamodio.gitlens"
             ]
         }
     }

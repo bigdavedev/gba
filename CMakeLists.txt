@@ -9,7 +9,7 @@ project (
     LANGUAGES CXX
 )
 
-add_subdirectory (libs)
+add_subdirectory (modules)
 
 add_executable (gba)
 
